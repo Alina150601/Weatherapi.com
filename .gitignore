@@ -1,5 +1,6 @@
 .idea/
 .vs/
-*/[Bb]in/
-*/[Oo]bj/
-.DS_Store
+[Bb]in/
+[Oo]bj/
+*.DS_Store
+*.user
