@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace Weatherapi.com;
+namespace Weatherapi.com.Tests;
 
 public class Tests
 {
@@ -37,7 +37,7 @@ public class Tests
     public async Task TimeZoneTest()
     {
         var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.Sunrise  == "Europe/Minsk");
+        Assert.IsTrue(data.TzId  == "Europe/Minsk");
     }
 
     [Test]
