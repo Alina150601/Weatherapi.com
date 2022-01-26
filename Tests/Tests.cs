@@ -8,42 +8,42 @@ public class Tests
     [Test]
     public async Task TemperatureMoreTwentyTest()
     {
-        var helper = new Helper();
-        await helper.CurrentWeather();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.CurrentTemperature > -20);
     }
 
     [Test]
     public async Task AverageTemperatureTest()
     {
-        var helper = new Helper();
-        await helper.AverageTemperature();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.AvgTemperature > -20);
     }
 
     [Test]
     public async Task SearchMinskTest()
     {
-        var helper = new Helper();
-        await helper.SearchMinsk();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.Region == "Minsk");
     }
 
     [Test]
     public async Task AstronomySunriseTest()
     {
-        var helper = new Helper();
-        await helper.Sunrice();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.Sunrise == "09:06 AM");
     }
 
     [Test]
     public async Task TimeZoneTest()
     {
-        var helper = new Helper();
-        await helper.TimeZone();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.Sunrise  == "Europe/Minsk");
     }
 
     [Test]
     public async Task SportsTest()
     {
-        var helper = new Helper();
-        await helper.Sports();
+        var data = await WeatherForecast.LoadWeatherDataAsync();
+        Assert.IsTrue(data.Football != null);
     }
 }
