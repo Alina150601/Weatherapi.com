@@ -114,7 +114,7 @@ public class Helper
             .GetProperty("sunrise")
             .GetString();
         Console.WriteLine(sunrise);
-        Assert.IsTrue(sunrise == "09:08 AM");
+        Assert.IsTrue(sunrise == "09:06 AM");
     }
 
     public async Task TimeZone()
@@ -160,7 +160,6 @@ public class Helper
             .RootElement
             .GetProperty("football")
             .ToString();
-        Console.WriteLine(tz_id);
         Assert.IsTrue(tz_id != null);
     }
 }
