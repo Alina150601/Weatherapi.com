@@ -5,45 +5,47 @@ namespace Weatherapi.com.Tests;
 
 public class Tests
 {
-    [Test]
-    public async Task TemperatureMoreTwentyTest()
+    private WeatherForecast _data;
+
+    [OneTimeSetUp]
+    public async Task LoadData()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.CurrentTemperature > -20);
+        _data = await WeatherForecast.LoadWeatherDataAsync();
     }
 
     [Test]
-    public async Task AverageTemperatureTest()
+    public void TemperatureMoreTwentyTest()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.AvgTemperature > -20);
+        Assert.IsTrue(_data.CurrentTemperature > -20);
     }
 
     [Test]
-    public async Task SearchMinskTest()
+    public void AverageTemperatureTest()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.Region == "Minsk");
+        Assert.IsTrue(_data.AvgTemperature > -20);
     }
 
     [Test]
-    public async Task AstronomySunriseTest()
+    public void SearchMinskTest()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.Sunrise == "09:06 AM");
+        Assert.IsTrue(_data.Region == "Minsk");
     }
 
     [Test]
-    public async Task TimeZoneTest()
+    public void AstronomySunriseTest()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.TzId  == "Europe/Minsk");
+        Assert.IsTrue(_data.Sunrise == "09:06 AM");
     }
 
     [Test]
-    public async Task SportsTest()
+    public void TimeZoneTest()
     {
-        var data = await WeatherForecast.LoadWeatherDataAsync();
-        Assert.IsTrue(data.Football != null);
+        Assert.IsTrue(_data.TzId  == "Europe/Minsk");
+    }
+
+    [Test]
+    public void SportsTest()
+    {
+        Assert.IsTrue(_data.Football != null);
     }
 }
