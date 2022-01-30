@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -5,47 +6,53 @@ namespace Weatherapi.com.Tests;
 
 public class Tests
 {
-    private WeatherForecast _data;
+    private WeatherApiController _weatherApiController;
 
     [OneTimeSetUp]
-    public async Task LoadData()
+    public void WeatherForecast()
     {
-        _data = await WeatherForecast.LoadWeatherDataAsync();
+        _weatherApiController = new WeatherApiController();
     }
 
     [Test]
-    public void TemperatureMoreTwentyTest()
+    public async Task CurrentTemperatureTest()
     {
-        Assert.IsTrue(_data.CurrentTemperature > -20);
+        var currentTemperatureJson = await _weatherApiController.GetCurrentJsonAsync();
+        Assert.IsTrue(currentTemperatureJson.current.temp_c > -20);
     }
 
     [Test]
-    public void AverageTemperatureTest()
+    public async Task AverageTemperatureTest()
     {
-        Assert.IsTrue(_data.AvgTemperature > -20);
+        var currentForecastJson = await _weatherApiController.GetForecastJsonAsync();
+        Assert.IsTrue(currentForecastJson.forecast.forecastday.First().day.avgtemp_c > -20);
     }
 
     [Test]
-    public void SearchMinskTest()
+    public async Task SearchMinskTest()
     {
-        Assert.IsTrue(_data.Region == "Minsk");
+        var currentForecastJson = await _weatherApiController.GetSearchJsonAsync();
+        Assert.IsTrue(currentForecastJson.Any(x=>x.region.Equals("Minsk")));
     }
 
     [Test]
-    public void AstronomySunriseTest()
+    public async Task AstronomySunriseTest()
     {
-        Assert.IsTrue(_data.Sunrise == "09:06 AM");
+        var currentForecastJson = await _weatherApiController.GetAstronomyJsonAsync();
+        Assert.IsTrue(currentForecastJson.Astronomy.astro.sunrise == "09:06 AM");
     }
 
     [Test]
-    public void TimeZoneTest()
+    public async Task  TimeZoneTest()
     {
-        Assert.IsTrue(_data.TzId  == "Europe/Minsk");
+        var currentForecastJson = await _weatherApiController.GetTimezoneJsonAsync();
+        Assert.IsTrue(currentForecastJson.location.tz_id  == "Europe/Minsk");
     }
 
     [Test]
-    public void SportsTest()
+    public async Task SportsTest()
     {
-        Assert.IsTrue(_data.Football != null);
+        var currentForecastJson = await _weatherApiController.GetSportsJsonAsync();
+        Assert.IsTrue(currentForecastJson.football != null);
     }
 }
